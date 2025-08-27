@@ -1,4 +1,4 @@
-/* Pizza Clicker - ABSURDO PSICODÉLICO Edition */
+/* Pizza Clicker - Clean Version */
 * {
     margin: 0;
     padding: 0;
@@ -6,97 +6,52 @@
 }
 
 :root {
-    /* Paleta de Cores Psicodélica ABSURDA */
-    --neon-pink: #ff00ff;
-    --neon-blue: #00ffff;
-    --neon-green: #39ff14;
-    --neon-yellow: #ffff00;
-    --neon-purple: #bf00ff;
-    --neon-orange: #ff5e00;
-    --neon-red: #ff073a;
-    --neon-cyan: #00ffcc;
+    /* Clean Color Palette */
+    --cc-white: #ffffff;
+    --cc-black: #000000;
+    --cc-brown: #8B4513;
+    --cc-dark-brown: #654321;
+    --cc-light-brown: #D2B48C;
+    --cc-orange: #FF8C00;
+    --cc-gold: #FFD700;
+    --cc-dark-gold: #B8860B;
+    --cc-green: #4CAF50;
+    --cc-red: #DC143C;
+    --cc-blue: #1E90FF;
     
-    /* Cores de fundo mutantes */
-    --bg-main: linear-gradient(45deg, #ff00ff, #00ffff, #ff5e00, #39ff14);
-    --bg-sidebar: rgba(0, 0, 0, 0.8);
-    --bg-header: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
-    --bg-upgrade: rgba(0, 0, 0, 0.7);
-    --bg-upgrade-hover: rgba(255, 255, 255, 0.2);
+    /* Background Colors */
+    --cc-bg-main: #f5f5f5;
+    --cc-bg-sidebar: rgba(255, 255, 255, 0.9);
+    --cc-bg-header: #ffcc00;
+    --cc-bg-upgrade: rgba(255, 255, 255, 0.95);
+    --cc-bg-upgrade-hover: rgba(240, 240, 240, 0.8);
     
-    /* Bordas e Sombras Psicodélicas */
-    --border-neon: 3px solid var(--neon-cyan);
-    --border-light: 2px solid rgba(255, 255, 255, 0.3);
-    --shadow-neon: 0 0 20px var(--neon-pink), 0 0 40px var(--neon-blue);
-    --shadow-hover: 0 0 30px var(--neon-green), 0 0 60px var(--neon-yellow);
+    /* Borders and Shadows */
+    --cc-border: 2px solid #ccc;
+    --cc-border-light: 1px solid #e0e0e0;
+    --cc-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --cc-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.15);
     
-    /* Fontes Distorcidas */
-    --font-main: 'Comic Sans MS', cursive;
-    --font-header: 'Impact', 'Arial Black', fantasy;
-    --font-mono: 'Courier New', monospace;
+    /* Fonts */
+    --cc-font-main: 'Arial', sans-serif;
+    --cc-font-header: 'Arial Black', 'Arial', sans-serif;
+    --cc-font-mono: 'Courier New', monospace;
     
-    /* Tamanhos Exagerados */
-    --border-radius: 15px;
-    --border-radius-sm: 8px;
-    --border-radius-lg: 25px;
+    /* Sizes */
+    --cc-border-radius: 8px;
+    --cc-border-radius-sm: 4px;
+    --cc-border-radius-lg: 12px;
 }
 
 body {
-    font-family: var(--font-main);
-    background: var(--bg-main);
-    background-size: 400% 400%;
+    font-family: var(--cc-font-main);
+    background: var(--cc-bg-main);
     min-height: 100vh;
-    overflow-x: hidden;
-    color: #ffffff;
-    position: relative;
+    color: #000000;
     line-height: 1.4;
-    animation: backgroundShift 8s ease infinite;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
 }
 
-/* Fundo dinâmico mutante */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(circle at 20% 20%, rgba(255, 0, 255, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(0, 255, 255, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 40% 60%, rgba(57, 255, 20, 0.3) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: -2;
-    animation: particleFloat 20s infinite linear;
-}
-
-/* Partículas flutuantes ABSURDAS */
-body::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        radial-gradient(2px 2px at 20px 30px, var(--neon-pink), transparent),
-        radial-gradient(2px 2px at 40px 70px, var(--neon-blue), transparent),
-        radial-gradient(3px 3px at 60px 10px, var(--neon-green), transparent),
-        radial-gradient(2px 2px at 80px 50px, var(--neon-yellow), transparent),
-        radial-gradient(3px 3px at 100px 80px, var(--neon-purple), transparent),
-        radial-gradient(2px 2px at 120px 20px, var(--neon-orange), transparent),
-        radial-gradient(3px 3px at 140px 60px, var(--neon-red), transparent),
-        radial-gradient(2px 2px at 160px 40px, var(--neon-cyan), transparent),
-        radial-gradient(3px 3px at 180px 70px, var(--neon-pink), transparent),
-        radial-gradient(2px 2px at 200px 30px, var(--neon-blue), transparent);
-    background-repeat: repeat;
-    background-size: 200px 100px;
-    z-index: -1;
-    animation: particleMove 30s infinite linear;
-    opacity: 0.6;
-}
-
-/* Cookie Clicker Layout */
+/* Game Container */
 .game-container {
     max-width: 1400px;
     margin: 0 auto;
@@ -176,21 +131,13 @@ header {
 h1 {
     font-family: var(--cc-font-header);
     font-size: 2.5rem;
-    color: var(--cc-gold);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    color: var(--cc-brown);
     margin-bottom: 15px;
 }
 
 h1::after {
     content: '🍕';
     margin-left: 10px;
-    animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-5px); }
-    60% { transform: translateY(-3px); }
 }
 
 /* Pizza Section */
@@ -426,15 +373,12 @@ h1::after {
 @keyframes pizza-click {
     0% {
         transform: scale(1);
-        filter: brightness(1);
     }
     50% {
         transform: scale(0.9);
-        filter: brightness(1.2);
     }
     100% {
         transform: scale(1);
-        filter: brightness(1);
     }
 }
 
@@ -561,7 +505,6 @@ button:focus,
     color: var(--cc-white);
     font-size: 1rem;
     margin-bottom: 5px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .achievement-notification-name {
@@ -583,7 +526,6 @@ button:focus,
     top: 10px;
     right: 10px;
     font-size: 1.2rem;
-    animation: bounce 2s infinite;
 }
 
 /* Welcome Modal Styles */
@@ -598,11 +540,10 @@ button:focus,
     justify-content: center;
     align-items: center;
     z-index: 10000;
-    backdrop-filter: blur(5px);
 }
 
 .modal-content {
-    background: linear-gradient(135deg, var(--cc-bg-main), var(--cc-bg-upgrade));
+    background: var(--cc-white);
     border: 3px solid var(--cc-gold);
     border-radius: var(--cc-border-radius-lg);
     padding: 40px;
@@ -610,18 +551,6 @@ button:focus,
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
     max-width: 400px;
     width: 90%;
-    animation: modal-appear 0.5s ease-out;
-}
-
-@keyframes modal-appear {
-    from {
-        opacity: 0;
-        transform: scale(0.8) translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
 }
 
 .modal-content h2 {
@@ -629,7 +558,6 @@ button:focus,
     color: var(--cc-brown);
     font-size: 1.8rem;
     margin-bottom: 20px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .modal-content p {
@@ -671,7 +599,6 @@ button:focus,
     font-size: 1.1rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
     box-shadow: 0 4px 12px rgba(255, 152, 0, 0.4);
 }
 
@@ -705,9 +632,5 @@ button:focus,
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
-    }
-    
-    .modal-content {
-        animation: none;
     }
 }
