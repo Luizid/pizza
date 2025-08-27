@@ -1,0 +1,713 @@
+/* Pizza Clicker - ABSURDO PSICODÉLICO Edition */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Paleta de Cores Psicodélica ABSURDA */
+    --neon-pink: #ff00ff;
+    --neon-blue: #00ffff;
+    --neon-green: #39ff14;
+    --neon-yellow: #ffff00;
+    --neon-purple: #bf00ff;
+    --neon-orange: #ff5e00;
+    --neon-red: #ff073a;
+    --neon-cyan: #00ffcc;
+    
+    /* Cores de fundo mutantes */
+    --bg-main: linear-gradient(45deg, #ff00ff, #00ffff, #ff5e00, #39ff14);
+    --bg-sidebar: rgba(0, 0, 0, 0.8);
+    --bg-header: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+    --bg-upgrade: rgba(0, 0, 0, 0.7);
+    --bg-upgrade-hover: rgba(255, 255, 255, 0.2);
+    
+    /* Bordas e Sombras Psicodélicas */
+    --border-neon: 3px solid var(--neon-cyan);
+    --border-light: 2px solid rgba(255, 255, 255, 0.3);
+    --shadow-neon: 0 0 20px var(--neon-pink), 0 0 40px var(--neon-blue);
+    --shadow-hover: 0 0 30px var(--neon-green), 0 0 60px var(--neon-yellow);
+    
+    /* Fontes Distorcidas */
+    --font-main: 'Comic Sans MS', cursive;
+    --font-header: 'Impact', 'Arial Black', fantasy;
+    --font-mono: 'Courier New', monospace;
+    
+    /* Tamanhos Exagerados */
+    --border-radius: 15px;
+    --border-radius-sm: 8px;
+    --border-radius-lg: 25px;
+}
+
+body {
+    font-family: var(--font-main);
+    background: var(--bg-main);
+    background-size: 400% 400%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: #ffffff;
+    position: relative;
+    line-height: 1.4;
+    animation: backgroundShift 8s ease infinite;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+/* Fundo dinâmico mutante */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(255, 0, 255, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0, 255, 255, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 60%, rgba(57, 255, 20, 0.3) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -2;
+    animation: particleFloat 20s infinite linear;
+}
+
+/* Partículas flutuantes ABSURDAS */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(2px 2px at 20px 30px, var(--neon-pink), transparent),
+        radial-gradient(2px 2px at 40px 70px, var(--neon-blue), transparent),
+        radial-gradient(3px 3px at 60px 10px, var(--neon-green), transparent),
+        radial-gradient(2px 2px at 80px 50px, var(--neon-yellow), transparent),
+        radial-gradient(3px 3px at 100px 80px, var(--neon-purple), transparent),
+        radial-gradient(2px 2px at 120px 20px, var(--neon-orange), transparent),
+        radial-gradient(3px 3px at 140px 60px, var(--neon-red), transparent),
+        radial-gradient(2px 2px at 160px 40px, var(--neon-cyan), transparent),
+        radial-gradient(3px 3px at 180px 70px, var(--neon-pink), transparent),
+        radial-gradient(2px 2px at 200px 30px, var(--neon-blue), transparent);
+    background-repeat: repeat;
+    background-size: 200px 100px;
+    z-index: -1;
+    animation: particleMove 30s infinite linear;
+    opacity: 0.6;
+}
+
+/* Cookie Clicker Layout */
+.game-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 300px 1fr 300px;
+    gap: 20px;
+    min-height: 100vh;
+}
+
+/* Sidebar Styles (Left) */
+.sidebar {
+    background: var(--cc-bg-sidebar);
+    border: var(--cc-border-light);
+    border-radius: var(--cc-border-radius);
+    padding: 20px;
+    box-shadow: var(--cc-shadow);
+}
+
+.sidebar-section {
+    margin-bottom: 25px;
+}
+
+.sidebar-section h3 {
+    font-family: var(--cc-font-header);
+    color: var(--cc-brown);
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--cc-light-brown);
+    padding-bottom: 5px;
+}
+
+/* Stats Section */
+.stats-grid {
+    display: grid;
+    gap: 10px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: var(--cc-white);
+    border: var(--cc-border-light);
+    border-radius: var(--cc-border-radius-sm);
+    font-size: 0.9rem;
+}
+
+.stat-label {
+    color: var(--cc-dark-brown);
+    font-weight: bold;
+}
+
+.stat-value {
+    color: var(--cc-black);
+    font-family: var(--cc-font-mono);
+}
+
+/* Main Game Area */
+.main-game-area {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Header Styles */
+header {
+    background: var(--cc-bg-header);
+    border-radius: var(--cc-border-radius);
+    padding: 20px;
+    text-align: center;
+    box-shadow: var(--cc-shadow);
+    border: var(--cc-border);
+}
+
+h1 {
+    font-family: var(--cc-font-header);
+    font-size: 2.5rem;
+    color: var(--cc-gold);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: 15px;
+}
+
+h1::after {
+    content: '🍕';
+    margin-left: 10px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-5px); }
+    60% { transform: translateY(-3px); }
+}
+
+/* Pizza Section */
+.pizza-section {
+    background: var(--cc-white);
+    border: var(--cc-border);
+    border-radius: var(--cc-border-radius);
+    padding: 30px;
+    text-align: center;
+    box-shadow: var(--cc-shadow);
+}
+
+.pizza-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    margin-bottom: 20px;
+}
+
+.pizza-container:hover {
+    transform: scale(1.05);
+}
+
+.pizza-container:active {
+    transform: scale(0.95);
+}
+
+.pizza-image {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 3px solid var(--cc-gold);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.pizza-container:hover .pizza-image {
+    box-shadow: 0 6px 18px rgba(255, 215, 0, 0.4);
+}
+
+.pizza-counter {
+    margin-top: 20px;
+    background: var(--cc-bg-upgrade);
+    padding: 15px 25px;
+    border-radius: var(--cc-border-radius);
+    border: var(--cc-border-light);
+}
+
+.pizza-counter span:first-child {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--cc-brown);
+    display: block;
+    font-family: var(--cc-font-mono);
+}
+
+.pizza-counter span:last-child {
+    font-size: 1.1rem;
+    color: var(--cc-dark-brown);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Upgrades Section */
+.upgrades-section {
+    background: var(--cc-bg-upgrade);
+    border: var(--cc-border);
+    border-radius: var(--cc-border-radius);
+    padding: 25px;
+    box-shadow: var(--cc-shadow);
+}
+
+.upgrades-section h2 {
+    font-family: var(--cc-font-header);
+    color: var(--cc-brown);
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--cc-light-brown);
+    padding-bottom: 10px;
+}
+
+.upgrades-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+}
+
+.upgrade {
+    background: var(--cc-white);
+    border: var(--cc-border-light);
+    border-radius: var(--cc-border-radius);
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.upgrade:hover {
+    background: var(--cc-bg-upgrade-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--cc-shadow-hover);
+}
+
+.upgrade.available {
+    border-color: var(--cc-green);
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+}
+
+.upgrade.available:hover {
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.4);
+}
+
+.upgrade.unavailable {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: #f5f5f5;
+}
+
+.upgrade.unavailable:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.upgrade-icon {
+    font-size: 2rem;
+    margin-right: 12px;
+    float: left;
+    width: 40px;
+    text-align: center;
+}
+
+.upgrade-info {
+    margin-left: 52px;
+}
+
+.upgrade-name {
+    font-weight: bold;
+    color: var(--cc-brown);
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.upgrade-cost, .upgrade-owned {
+    font-size: 0.85rem;
+    color: var(--cc-dark-brown);
+}
+
+.upgrade-cost {
+    color: var(--cc-orange);
+    font-weight: bold;
+}
+
+.upgrade-owned {
+    color: var(--cc-light-brown);
+}
+
+/* Right Sidebar (Achievements) */
+.achievements-section {
+    background: var(--cc-bg-sidebar);
+    border: var(--cc-border-light);
+    border-radius: var(--cc-border-radius);
+    padding: 20px;
+    box-shadow: var(--cc-shadow);
+}
+
+.achievements-section h3 {
+    font-family: var(--cc-font-header);
+    color: var(--cc-brown);
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--cc-light-brown);
+    padding-bottom: 5px;
+}
+
+.achievement {
+    background: var(--cc-white);
+    border: var(--cc-border-light);
+    border-radius: var(--cc-border-radius-sm);
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.achievement.locked {
+    opacity: 0.5;
+    background: #f0f0f0;
+}
+
+.achievement-name {
+    font-weight: bold;
+    color: var(--cc-brown);
+}
+
+.achievement-desc {
+    color: var(--cc-dark-brown);
+    font-size: 0.8rem;
+}
+
+/* Floating Pizza Animation */
+.floating-pizza {
+    position: fixed;
+    color: var(--cc-orange);
+    font-weight: bold;
+    font-size: 1.2rem;
+    pointer-events: none;
+    z-index: 1000;
+    animation: float-up 1s ease-out forwards;
+    font-family: var(--cc-font-header);
+}
+
+@keyframes float-up {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translateY(-25px) scale(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50px) scale(1.5);
+    }
+}
+
+/* Pizza Click Animation */
+.pizza-click-animation {
+    animation: pizza-click 0.2s ease-out;
+}
+
+@keyframes pizza-click {
+    0% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+    50% {
+        transform: scale(0.9);
+        filter: brightness(1.2);
+    }
+    100% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .game-container {
+        grid-template-columns: 250px 1fr 250px;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .game-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .sidebar, .achievements-section {
+        order: 2;
+    }
+    
+    .main-game-area {
+        order: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .game-container {
+        padding: 15px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .pizza-image {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .upgrades-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .pizza-image {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .pizza-counter span:first-child {
+        font-size: 1.5rem;
+    }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--cc-bg-upgrade);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--cc-light-brown);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--cc-brown);
+}
+
+/* Focus States */
+button:focus,
+.upgrade:focus {
+    outline: 2px solid var(--cc-orange);
+    outline-offset: 2px;
+}
+
+/* Achievement Notifications */
+.achievement-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, var(--cc-gold), var(--cc-orange));
+    border: 2px solid var(--cc-dark-gold);
+    border-radius: var(--cc-border-radius);
+    padding: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transform: translateX(400px);
+    transition: transform 0.5s ease;
+    z-index: 10000;
+    max-width: 300px;
+}
+
+.achievement-notification.show {
+    transform: translateX(0);
+}
+
+.achievement-notification-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.achievement-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.achievement-notification-text {
+    flex: 1;
+}
+
+.achievement-notification-title {
+    font-weight: bold;
+    color: var(--cc-white);
+    font-size: 1rem;
+    margin-bottom: 5px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.achievement-notification-name {
+    font-weight: bold;
+    color: var(--cc-white);
+    font-size: 1.1rem;
+    margin-bottom: 3px;
+}
+
+.achievement-notification-desc {
+    color: var(--cc-white);
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* Achievement Badge */
+.achievement-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.2rem;
+    animation: bounce 2s infinite;
+}
+
+/* Welcome Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: linear-gradient(135deg, var(--cc-bg-main), var(--cc-bg-upgrade));
+    border: 3px solid var(--cc-gold);
+    border-radius: var(--cc-border-radius-lg);
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 90%;
+    animation: modal-appear 0.5s ease-out;
+}
+
+@keyframes modal-appear {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.modal-content h2 {
+    font-family: var(--cc-font-header);
+    color: var(--cc-brown);
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content p {
+    color: var(--cc-dark-brown);
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+#player-name-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--cc-light-brown);
+    border-radius: var(--cc-border-radius);
+    font-family: var(--cc-font-main);
+    font-size: 1rem;
+    background: var(--cc-white);
+    color: var(--cc-black);
+    margin-bottom: 20px;
+    transition: border-color 0.3s ease;
+}
+
+#player-name-input:focus {
+    outline: none;
+    border-color: var(--cc-orange);
+    box-shadow: 0 0 10px rgba(255, 152, 0, 0.3);
+}
+
+#player-name-input::placeholder {
+    color: var(--cc-light-brown);
+}
+
+#start-game-btn {
+    background: linear-gradient(135deg, var(--cc-orange), var(--cc-gold));
+    color: var(--cc-white);
+    border: none;
+    border-radius: var(--cc-border-radius);
+    padding: 12px 30px;
+    font-family: var(--cc-font-header);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 12px rgba(255, 152, 0, 0.4);
+}
+
+#start-game-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(255, 152, 0, 0.5);
+}
+
+#start-game-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(255, 152, 0, 0.3);
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .game-container {
+        background: var(--cc-white);
+        border: 2px solid var(--cc-black);
+    }
+    
+    .sidebar, .achievements-section {
+        background: var(--cc-white);
+        border: 2px solid var(--cc-black);
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .modal-content {
+        animation: none;
+    }
+}

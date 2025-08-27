@@ -1,0 +1,852 @@
+/* Pizza Clicker - ABSURDO PSICODÉLICO Edition */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Paleta de Cores Psicodélica ABSURDA */
+    --neon-pink: #ff00ff;
+    --neon-blue: #00ffff;
+    --neon-green: #39ff14;
+    --neon-yellow: #ffff00;
+    --neon-purple: #bf00ff;
+    --neon-orange: #ff5e00;
+    --neon-red: #ff073a;
+    --neon-cyan: #00ffcc;
+    
+    /* Cores de fundo mutantes */
+    --bg-main: linear-gradient(45deg, #ff00ff, #00ffff, #ff5e00, #39ff14);
+    --bg-sidebar: rgba(0, 0, 0, 0.8);
+    --bg-header: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+    --bg-upgrade: rgba(0, 0, 0, 极速赛车开奖直播0.7);
+    --bg-upgrade-hover: rgba(255, 255, 255, 0.2);
+    
+    /* Bordas e Sombras Psicodélicas */
+    --border-neon: 3px solid var(--neon-cyan);
+    --border-light: 2px solid rgba(255, 255, 255, 0.3);
+    --shadow-neon: 0 0 20px var(--neon-pink), 0 0 40px var(--neon-blue);
+    --shadow-hover: 0 0 30px var(--neon-green), 0 0 极速赛车开奖直播60px var(--neon-yellow);
+    
+    /* Fontes Distorcidas */
+    --font-main: 'Comic Sans MS', cursive;
+    --font-header: 'Impact', 'Arial Black', fantasy;
+    --font-mono: 'Courier New', monospace;
+    
+    /* Tamanhos Exagerados */
+    --border-radius: 15px;
+    --border-radius-sm: 8px;
+    --border-radius-lg: 25px;
+}
+
+/* Animações ABSURDAS */
+@keyframes backgroundShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 极速赛车开奖直播50%; }
+}
+
+@keyframes particleFloat {
+    0% { transform: translateY(0px) rotate(0deg); }
+    25% { transform: translateY(-20px) rotate(90deg); }
+    50% { transform: translateY(0px) rotate(180deg); }
+    75% { transform: translateY(20px) rotate(270deg); }
+    100% { transform: translateY(0px) rotate(360deg); }
+}
+
+@keyframes particleMove {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-100px); }
+}
+
+@keyframes neonPulse {
+    0%, 100% { 
+        box-shadow: 0 0 20px var(--neon-pink),
+                   0 0 40px var(--neon-blue),
+                   0 0 60px var(--neon-green);
+    }
+    50% { 
+        box-shadow: 0 0 30px var(--neon-pink),
+                   0 0 60px var(--neon-blue),
+                   0 0 90px var(--neon-green);
+    }
+}
+
+@keyframes colorShift {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+@keyframes crazySpin {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(90deg) scale(1.2); }
+    50% { transform: rotate(180deg) scale(1); }
+    75% { transform: rotate(270deg) scale(1.2); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes shine {
+    0% { left: -50%; }
+    100% { left: 150%; }
+}
+
+body {
+    font-family: var(--font-main);
+    background: var(--bg-main);
+    background-size: 400% 400%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: #ffffff;
+    position: relative;
+    line-height: 1.4;
+    animation: backgroundShift 8s ease infinite;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+/* Fundo dinâmico mutante */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(255, 0, 255, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0, 255, 255, 极速赛车开奖直播0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 60%, rgba(57, 255, 20, 0.3) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -2;
+    animation: particleFloat 20s infinite linear;
+}
+
+/* Partículas flutuantes ABSURDAS */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 极速赛车开奖直播100%;
+    background-image: 
+        radial-gradient(2px 2px at 20px 30px, var(--neon-pink), transparent),
+        radial-gradient(2px 2px at 40px 70px, var(--neon-blue), transparent),
+        radial-gradient(3px 3px at 极速赛车开奖直播60px 10px, var(--neon-green), transparent),
+        radial-gradient(2px 2px at 80px 50px, var(--neon-yellow), transparent),
+        radial-gradient(3px 3px at 100px 80px, var(--neon-purple), transparent),
+        radial-gradient(2px 2px at 120px 20px, var(--neon-orange), transparent),
+        radial-gradient(3px 3px at 140px 60px, var(--neon-red), transparent),
+        radial-gradient(2px 2px at 160px 40px, var(--neon-cyan), transparent),
+        radial-gradient(3px 3px at 180px 70px, var(--极速赛车开奖直播neon-pink), transparent),
+        radial-gradient(2px 2px at 200px 极速赛车开奖直播30px, var(--neon-blue), transparent);
+    background-repeat: repeat;
+    background-size: 200px 100px;
+    z-index: -1;
+    animation: particleMove 30s infinite linear;
+    opacity: 0.6;
+}
+
+/* Layout Psicodélico */
+.game-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 300px 1fr 300px;
+    gap: 20px;
+    min-height: 100vh;
+    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: var(--border-radius-lg);
+    border: var(--border-neon);
+    box-shadow: var(--shadow-neon);
+    animation: neonPulse 3s infinite;
+}
+
+/* Sidebar Styles (Left) - ABSURDO */
+.sidebar {
+    background: var(--bg-sidebar);
+    border: var(--border-neon);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--shadow-neon);
+    animation: colorShift 10s infinite linear;
+}
+
+.sidebar-section {
+    margin-bottom: 25px;
+}
+
+.sidebar-section h3 {
+    font-family: var(--font-header);
+    color: var(--neon-cyan);
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    border-bottom: 3px solid var(--neon-pink);
+    padding-bottom: 8px;
+    text-shadow: 0 0 15px var(--neon-blue);
+    animation: neonPulse 2s infinite;
+}
+
+/* Stats Section - PSICODÉLICO */
+.stats-grid {
+    display: grid;
+    gap: 12px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid var(--neon-green);
+    border-radius: var(--border-radius-sm);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    animation: neonPulse 4s infinite;
+}
+
+.stat-item:hover {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: var(--shadow-hover);
+}
+
+.stat-label {
+    color: var(--neon-yellow);
+    font-weight: bold;
+    text-shadow: 0 极速赛车开奖直播0 10px var(--neon-orange);
+}
+
+.stat-value {
+    color: var(--neon-cyan);
+    font-family: var(--font-mono);
+    font-weight: bold;
+    text-shadow: 0 0 8px var(--neon-blue);
+}
+
+/* Main Game Area */
+.main-game-area {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* Header Styles - EXTRAVAGANTE */
+header {
+    background: var(--bg-header);
+    border-radius: var(--border-radius-lg);
+    padding: 25px;
+    text-align: center;
+    box-shadow: var(--shadow-neon);
+    border: var(--border-neon);
+    animation: crazySpin 5s infinite linear;
+}
+
+h1 {
+    font-family: var(--font-header);
+    font-size: 3rem;
+    color: var(--neon-yellow);
+    text-shadow: 0 0 20px var(--neon-pink), 
+                 0 0 40px var(--neon-blue),
+                 0 0 60px var(--neon-green);
+    margin-bottom: 20px;
+    animation: neonP极速赛车开奖直播ulse 1.5s infinite;
+}
+
+h1::after {
+    content: '🍕';
+    margin-left: 15px;
+    animation: bounce 2s infinite, crazySpin 3s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0) scale(1); }
+    40% { transform: translateY(-10px) scale(1.2); }
+    60% { transform: translateY(-5极速赛车开奖直播px) scale(1.1); }
+}
+
+/* Pizza Section - ALUCINANTE */
+.pizza-section {
+    background: rgba(0, 0, 0, 0.7);
+    border: var(--border-neon);
+    border-radius: var(--border-radius-lg);
+    padding: 35px;
+    text-align: center;
+    box-shadow: var(--shadow-neon);
+    animation: colorShift 8s infinite linear;
+}
+
+.pizza-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 25px;
+    animation: neonPulse 2s infinite;
+}
+
+.pizza-container:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.pizza-container:active {
+    transform: scale(0.9) rotate(-5deg);
+}
+
+.pizza-image {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    border: 5px solid var(--neon-yellow);
+    box-shadow: 0 0 30px var(--neon-pink),
+               0 0 60px var(--neon-blue),
+               0 0 90px var(--neon-green);
+    transition: all 0.3s ease;
+    animation: crazySpin 10s infinite linear;
+    filter: hue-rotate(0deg);
+}
+
+.pizza-container:hover .pizza-image {
+    box-shadow: 极速赛车开奖直播0 0 40px var(--neon-yellow),
+               0 0 80px var(--neon-orange),
+               0 0 120px var(--neon-red);
+    animation: crazySpin 2s infinite linear;
+}
+
+.pizza-counter {
+    margin-top: 25px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px 30px;
+    border-radius: var(--border-radius-lg);
+    border: var(--border-neon);
+    box-shadow: var(--shadow-neon);
+}
+
+.pizza-counter span:first-child {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--neon-cyan);
+    display: block;
+    font-family: var(--font-mono);
+    text-shadow: 0 0 15px var(--neon-blue);
+    animation: neonPulse 1s infinite;
+}
+
+.pizza-counter span:last-child {
+    font-size: 1.3rem;
+    color: var(--neon-yellow);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px var(--neon-orange);
+}
+
+/* Upgrades Section - PSICODÉLICO */
+.upgrades-section {
+    background: var(--bg-upgrade);
+    border: var(--border-neon);
+    border-radius: var(--border-radius-lg);
+    padding: 30px;
+    box-shadow: var(--shadow-neon);
+    animation: colorShift 12s infinite linear;
+}
+
+.upgrades-section h2 {
+    font-family: var(--font-header);
+    color: var(--neon-pink);
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 25极速赛车开奖直播px;
+    border-bottom: 3px solid var(--neon-blue);
+    padding-bottom: 12px;
+    text-shadow: 0 0 20px var(--neon-purple);
+    animation: neonPulse 2s infinite;
+}
+
+.upgrades-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.upgrade {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid var(--neon-green);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    animation: neonPulse 3s infinite;
+}
+
+.upgrade::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: rotate(45deg);
+    animation: shine 3s infinite;
+}
+
+.upgrade:hover {
+    background: var(--bg-upgrade-hover);
+    transform: translateY(-5px) scale(1.05) rotate(2deg);
+    box-shadow: var(--shadow-hover);
+    animation: crazySpin 1s infinite;
+}
+
+.upgrade.available {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 20px var(--neon-cyan),
+               0 0 40px var(--neon-blue);
+}
+
+.upgrade.available:hover {
+    box-shadow: 0 0 30px var(--neon-cyan),
+               0 0 60px var(--neon-blue),
+               0 0 90px var(--neon-green);
+}
+
+.upgrade.unavailable {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: rgba(0, 0, 0, 0.4);
+    animation: none;
+}
+
+.upgrade.unavailable:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.upgrade-icon {
+    font-size: 2.5rem;
+    margin-right: 15px;
+    float: left;
+    width: 50px;
+    text-align: center;
+    animation: crazySpin 5s infinite linear;
+}
+
+.upgrade-info {
+    margin-left: 65px;
+}
+
+.upgrade-name {
+    font-weight: bold;
+    color: var(--neon-yellow);
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    text-shadow: 0 0 10px var(--neon-orange);
+}
+
+.upgrade-cost, .upgrade-owned {
+    font-size: 1极速赛车开奖直播rem;
+    color: var(--neon-cyan);
+}
+
+.upgrade-cost {
+    color: var(--neon-pink);
+    font-weight: bold;
+    text-shadow: 0 0 8px var(--neon-purple);
+}
+
+.upgrade-owned {
+    color: var(--neon-green);
+    text-shadow: 0 0 8px var(--neon-blue);
+}
+
+/* Right Sidebar (Achievements) - ABSURDO */
+.achievements-section {
+    background: var(--bg-sidebar);
+    border: var(--border-neon);
+    border-radius: var(--border-radius);
+    padding: 25px;
+    box-shadow: var(--shadow-neon);
+    animation: colorShift 15s infinite linear;
+}
+
+.achievements-section h3 {
+    font-family: var(--font-header);
+    color: var(--neon-orange);
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    border-bottom: 3px solid var(--neon-red);
+    padding-bottom: 10px;
+    text-shadow: 0 0 15px var(--neon-yellow);
+    animation: neonPulse 2s infinite;
+}
+
+.achievement {
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--neon-purple);
+    border-radius: var(--border-radius-sm);
+    padding: 15px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    animation: neonPulse 4s infinite;
+}
+
+.achievement:hover {
+    transform: scale(1.05) rotate(1deg);
+    box-shadow: var(--shadow-hover);
+}
+
+.achievement.locked {
+    opacity: 0.4;
+    background: rgba(0, 0, 0, 0.3);
+    animation: none;
+}
+
+.achievement-name {
+    font-weight: bold;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px var(--neon-blue);
+}
+
+.achievement-desc {
+    color: var(--neon-green);
+    font-size: 0.9rem;
+    text-shadow: 0 0 8px var(--neon-yellow);
+}
+
+/* Floating Pizza Animation - PSICODÉLICO */
+.floating-pizza {
+    position: fixed;
+    color: var(--neon-pink);
+    font-weight: bold;
+    font-size: 1.5rem;
+    pointer-events: none;
+    z-index: 1000;
+    animation: float-up 1s ease-out forwards, neonPulse 0.5s infinite;
+    font-family: var(--font-header);
+    text-shadow: 0 0 20px var(--neon-blue);
+}
+
+@keyframes float-up {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(0deg);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translateY(-40px) scale(1.5) rotate(180deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-80px) scale(2) rotate(360deg);
+    }
+}
+
+/* Pizza Click Animation - EXTRAVAGANTE */
+.pizza-click-animation {
+    animation: pizza-click 0.3s ease-out, neonPulse 0.1s infinite;
+}
+
+@keyframes pizza-click {
+    0% {
+        transform: scale(1);
+        filter: brightness(1) hue-rotate(0deg);
+    }
+    50% {
+        transform: scale(0.8);
+        filter: brightness(2) hue-rotate(180deg);
+    }
+    100% {
+        transform: scale(1);
+        filter: brightness(1) hue-rotate(360deg);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .game-container {
+        grid-template-columns: 250px 1fr 250px;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .game-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .sidebar, .achievements-section {
+        order: 2;
+    }
+    
+    .main-game-area {
+        order: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .game-container {
+        padding: 15px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .pizza-image {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .upgrades-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .pizza-image {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .pizza-counter span:first-child {
+        font-size: 1.5rem;
+    }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--neon-pink);
+    border-radius: 4px;
+    box-shadow: 0 0 10px var(--neon-blue);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--neon-cyan);
+    box-shadow: 0 0 15px var(--neon-green);
+}
+
+/* Focus States */
+button:focus,
+.upgrade:focus {
+    outline: 3px solid var(--neon-yellow);
+    outline-offset: 3px;
+    box-shadow: 0 0 20px var(--neon-orange);
+}
+
+/* Achievement Notifications */
+.achievement-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, var(--neon-pink), var(--neon-blue));
+    border: 3px solid var(--neon-cyan);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--shadow-neon);
+    transform: translateX(400px);
+    transition: transform 0.5s ease;
+    z-index: 10000;
+    max-width: 300px;
+    animation: neonPulse 2s infinite;
+}
+
+.achievement-notification.show {
+    transform: translateX(0);
+}
+
+.achievement-notification-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.achievement-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+    animation: crazySpin 3s infinite linear;
+}
+
+.achievement-notification-text {
+    flex: 1;
+}
+
+.achievement-notification-title {
+    font-weight: bold;
+    color: var(--neon-yellow);
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    text-shadow: 0 0 10px var(--neon-orange);
+}
+
+.achievement-notification-name {
+    font-weight: bold;
+    color: var(--neon-cyan);
+    font-size: 1.3rem;
+    margin-bottom: 3px;
+    text-shadow: 0 0 12px var(--neon-blue);
+}
+
+.achievement-notification-desc {
+    color: var(--neon-green);
+    font-size: 1rem;
+    text-shadow: 0 0 8px var(--neon-yellow);
+}
+
+/* Achievement Badge */
+.achievement-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    animation: bounce 2s infinite, neonPulse 1s infinite;
+}
+
+/* Welcome Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    backdrop-filter: blur(10px);
+}
+
+.modal-content {
+    background: linear-gradient(135deg, var(--neon-purple), var(--neon-orange));
+    border: 4px solid var(--neon-yellow);
+    border-radius: var(--border-radius-lg);
+    padding: 40px;
+    text-align: center;
+    box-shadow: var(--shadow-neon);
+    max-width: 400px;
+    width: 90%;
+    animation: modal-appear 0.5s ease-out, neonPulse 3s infinite;
+}
+
+@keyframes modal-appear {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-20px) rotate(-10deg);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0) rotate(0deg);
+    }
+}
+
+.modal-content h2 {
+    font-family: var(--font-header);
+    color: var(--neon-yellow);
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px var(--neon-pink);
+    animation: neonPulse 1.5s infinite;
+}
+
+.modal-content p {
+    color: var(--neon-cyan);
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    text-shadow: 0 0 10px var(--neon-blue);
+}
+
+#player-name-input {
+    width: 100%;
+    padding: 15px 20px;
+    border: 3px solid var(--neon-green);
+    border-radius: var(--border-radius);
+    font-family: var(--font-main);
+    font-size: 1.1rem;
+    background: rgba(0, 0, 0, 0.7);
+    color: var(--neon-yellow);
+    margin-bottom: 25px;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 8px var(--neon-orange);
+}
+
+#player-name-input:focus {
+    outline: none;
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 20px var(--neon-blue);
+    transform: scale(1.05);
+}
+
+#player-name-input::placeholder {
+    color: var(--neon-green);
+    opacity: 0.7;
+}
+
+#start-game-btn {
+    background: linear-gradient(135deg, var(--neon-red), var(--neon-orange));
+    color: var(--neon-yellow);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 15px 35px;
+    font-family: var(--font-header);
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 10px var(--neon-pink);
+    box-shadow: var(--shadow-neon);
+    animation: neonPulse 2s infinite;
+}
+
+#start-game-btn:hover {
+    transform: translateY(-3px) scale(1.1);
+    box-shadow: var(--shadow-hover);
+}
+
+#start-game-btn:active {
+    transform: translateY(0) scale(1);
+    box-shadow: var(--shadow-neon);
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .game-container {
+        background: rgba(0, 0, 0, 0.9);
+        border: 4px solid var(--neon-yellow);
+    }
+    
+    .sidebar, .achievements-section {
+        background: rgba(0, 0, 0, 0.9);
+        border: 4px solid var(--neon-cyan);
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .modal-content {
+        animation: modal-appear 0.5s ease-out !important;
+    }
+}
