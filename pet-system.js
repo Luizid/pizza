@@ -1,6 +1,12 @@
 class PetSystem {
     constructor(game) {
         this.game = game;
+        
+        // Limited time event - 7 days to obtain mythical pet
+        this.eventStartTime = Date.now();
+        this.eventDuration = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
+        this.eventActive = true;
+        
         this.pets = {
             cat: {
                 name: "Gato",
@@ -42,6 +48,14 @@ class PetSystem {
                 bonus: { type: "rebirth", multiplier: 3.0 },
                 owned: false
             },
+            cosmicDragon: {
+                name: "Dragão Cósmico",
+                emoji: "🐉✨",
+                description: "Multiplica todas as pizzas por 2x",
+                rarity: "mythical",
+                bonus: { type: "all", multiplier: 2.0 },
+                owned: false
+            },
             penguin: {
                 name: "Pinguim",
                 emoji: "🐧",
@@ -76,7 +90,43 @@ class PetSystem {
 
     init() {
         this.loadPetData();
+        this.checkEventStatus();
         this.createPetUI();
+        this.startEventTimer();
+    }
+
+    startEventTimer() {
+        // Update timer every minute
+        this.timerInterval = setInterval(() => {
+            this.checkEventStatus();
+            this.updateEventTimer();
+        }, 60000); // Update every minute
+    }
+
+    checkEventStatus() {
+        const currentTime = Date.now();
+        const timeElapsed = currentTime - this.eventStartTime;
+        this.eventActive = timeElapsed < this.eventDuration;
+        
+        if (!this.eventActive) {
+            console.log("Evento do Dragão Cósmico expirou");
+        }
+    }
+
+    formatTimeRemaining() {
+        const currentTime = Date.now();
+        const timeElapsed = currentTime - this.eventStartTime;
+        const timeRemaining = this.eventDuration - timeElapsed;
+        
+        if (timeRemaining <= 0) {
+            return "Evento encerrado";
+        }
+        
+        const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+        
+        return `${days}d ${hours}h ${minutes}m`;
     }
 
     loadPetData() {
@@ -151,6 +201,12 @@ class PetSystem {
                         <span class="pet-label">Custo por giro:</span>
                         <span class="pet-value">${this.rouletteCost} tokens</span>
                     </div>
+                    ${this.eventActive ? `
+                    <div class="pet-stat">
+                        <span class="pet-label">Evento:</span>
+                        <span id="event-timer" class="pet-value">${this.formatTimeRemaining()}</span>
+                    </div>
+                    ` : ''}
                 </div>
 
                 <div class="pet-actions">
@@ -190,6 +246,11 @@ class PetSystem {
         
         // Add each pet multiple times based on rarity
         for (const [petId, pet] of petEntries) {
+            // Skip mythical pet if event is not active
+            if (pet.rarity === "mythical" && !this.eventActive) {
+                continue;
+            }
+            
             let count = 1;
             
             switch (pet.rarity) {
@@ -197,6 +258,7 @@ class PetSystem {
                 case "rare": count = 3; break;
                 case "epic": count = 2; break;
                 case "legendary": count = 1; break;
+                case "mythical": count = 1; break; // Mythical pets are the rarest
             }
             
             for (let i = 0; i < count; i++) {
@@ -259,7 +321,8 @@ class PetSystem {
             common: "Comum",
             rare: "Raro",
             epic: "Épico",
-            legendary: "Lendário"
+            legendary: "Lendário",
+            mythical: "Mítico"
         };
         return names[rarity] || rarity;
     }
@@ -418,6 +481,9 @@ class PetSystem {
         // Update token display
         this.updateTokenDisplay();
         
+        // Update event timer if event is active
+        this.updateEventTimer();
+        
         // Update pets collection
         const petsGrid = document.querySelector('.pets-grid');
         if (petsGrid) {
@@ -443,6 +509,13 @@ class PetSystem {
             const canSpin = this.game.tokens >= this.rouletteCost;
             spinButton.className = `pet-btn ${canSpin ? 'available' : 'unavailable'}`;
             spinButton.querySelector('.pet-tooltip').textContent = `Custa ${this.rouletteCost} tokens`;
+        }
+    }
+
+    updateEventTimer() {
+        const timerElement = document.getElementById('event-timer');
+        if (timerElement && this.eventActive) {
+            timerElement.textContent = this.formatTimeRemaining();
         }
     }
 
