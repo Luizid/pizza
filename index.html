@@ -97,6 +97,7 @@
             <button class="tab-button" onclick="switchTab('achievements')">Conquistas</button>
             <button class="tab-button" onclick="switchTab('ascension')">Ascensão</button>
             <button class="tab-button" onclick="switchTab('miner')">Pizza Miner</button>
+            <button class="tab-button" onclick="switchTab('leaderboard')">Classificação</button>
         </div>
 
         <div id="upgradesTab" class="tab-content active">
@@ -133,6 +134,32 @@
                 <button id="stopMiningButton" onclick="stopMining()" disabled>Parar Mineração</button>
             </div>
             <p class="miner-description">Use o poder total do seu computador para minerar pizzas! Dispositivos mais potentes mineram mais pizzas.</p>
+        </div>
+
+        <div id="leaderboardTab" class="tab-content">
+            <h2>Classificação Global</h2>
+            <div class="leaderboard-info">
+                <p>Última atualização: <span id="lastUpdate">Nunca</span></p>
+                <button onclick="refreshLeaderboard()">Atualizar</button>
+            </div>
+            <div id="leaderboardContainer" class="leaderboard-container">
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>Posição</th>
+                            <th>Jogador</th>
+                            <th>Pizzas Totais</th>
+                            <th>Renascimentos</th>
+                            <th>Ascensões</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboardBody">
+                        <tr>
+                            <td colspan="5">Carregando classificação...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="rebirth-section">

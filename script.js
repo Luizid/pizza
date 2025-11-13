@@ -865,6 +865,73 @@ function stopMining() {
     }
 }
 
+// Funções da classificação
+let leaderboardInterval = null;
+
+async function fetchLeaderboard() {
+    try {
+        const response = await fetch('http://localhost:3001/leaderboard');
+        if (response.ok) {
+            const data = await response.json();
+            return data.leaderboard || [];
+        } else {
+            console.error('Erro ao buscar classificação:', response.status);
+            return [];
+        }
+    } catch (error) {
+        console.error('Erro na requisição da classificação:', error);
+        return [];
+    }
+}
+
+function renderLeaderboard(leaderboard) {
+    const tbody = document.getElementById('leaderboardBody');
+    const lastUpdateEl = document.getElementById('lastUpdate');
+
+    if (leaderboard.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5">Nenhum jogador encontrado</td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = leaderboard.map((player, index) => {
+        const position = index + 1;
+        const medal = position === 1 ? '🥇' : position === 2 ? '🥈' : position === 3 ? '🥉' : '';
+        const isCurrentPlayer = player.username === localStorage.getItem('currentUsername');
+
+        return `
+            <tr class="${isCurrentPlayer ? 'current-player' : ''}">
+                <td>${medal || position}</td>
+                <td>${player.username}${isCurrentPlayer ? ' (Você)' : ''}</td>
+                <td>${formatNumber(player.totalPizzas)}</td>
+                <td>${player.rebirthCount}</td>
+                <td>${player.ascensionCount}</td>
+            </tr>
+        `;
+    }).join('');
+
+    lastUpdateEl.textContent = new Date().toLocaleTimeString('pt-BR');
+}
+
+async function refreshLeaderboard() {
+    const leaderboard = await fetchLeaderboard();
+    renderLeaderboard(leaderboard);
+}
+
+function startLeaderboardUpdates() {
+    // Atualizar imediatamente
+    refreshLeaderboard();
+
+    // Atualizar a cada 30 segundos
+    leaderboardInterval = setInterval(refreshLeaderboard, 30000);
+}
+
+function stopLeaderboardUpdates() {
+    if (leaderboardInterval) {
+        clearInterval(leaderboardInterval);
+        leaderboardInterval = null;
+    }
+}
+
 // Função de carregamento
 function simulateLoading() {
     const loadingScreen = document.getElementById('loadingScreen');
@@ -1156,6 +1223,9 @@ async function initGame() {
 
         pizzaButton.addEventListener('click', clickPizza);
         rebirthButton.addEventListener('click', rebirth);
+
+        // Start leaderboard updates
+        startLeaderboardUpdates();
 
         setInterval(gameLoop, 1000 / 60); // 60 FPS
     } else {
