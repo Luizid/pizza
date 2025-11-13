@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Clicker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <img src="icon/ChatGPT Image 9 de nov. de 2025, 03_37_12.png" alt="Pizza Clicker Logo" class="loading-pizza">
+                <h1 class="loading-title">Pizza Clicker</h1>
+            </div>
+            <div class="loading-bar-container">
+                <div class="loading-bar"></div>
+            </div>
+            <div class="loading-text">Preparando as pizzas...</div>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+
+    <div id="accountScreen" class="account-screen" style="display: none;">
+        <div class="account-content">
+            <div class="account-logo">
+                <img src="icon/ChatGPT Image 9 de nov. de 2025, 03_37_12.png" alt="Pizza Clicker Logo" class="account-pizza">
+                <h1 class="account-title">Pizza Clicker</h1>
+            </div>
+            <div class="account-form">
+                <div class="account-tabs">
+                    <button class="account-tab-button active" onclick="switchAccountTab('login')">Entrar</button>
+                    <button class="account-tab-button" onclick="switchAccountTab('create')">Criar Conta</button>
+                </div>
+                <div id="loginTab" class="account-tab-content active">
+                    <h2>Entrar na Conta</h2>
+                    <input type="text" id="loginUsername" placeholder="Nome de Usuário" class="account-input">
+                    <input type="password" id="loginPassword" placeholder="Senha" class="account-input">
+                    <button onclick="login()" class="account-button">Entrar</button>
+                    <p id="loginError" class="error-message"></p>
+                </div>
+                <div id="createTab" class="account-tab-content">
+                    <h2>Criar Nova Conta</h2>
+                    <input type="text" id="createUsername" placeholder="Nome de Usuário" class="account-input">
+                    <input type="password" id="createPassword" placeholder="Senha" class="account-input">
+                    <input type="password" id="createConfirmPassword" placeholder="Confirmar Senha" class="account-input">
+                    <button onclick="createAccount()" class="account-button">Criar Conta</button>
+                    <p id="createError" class="error-message"></p>
+                </div>
+            </div>
+            <div class="account-options">
+                <button onclick="playAsGuest()" class="account-button guest-button">Modo Convidado</button>
+                <button onclick="loginLater()" class="account-button later-button">Logar Depois</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="display: none;">
+        <div class="header">
+            <h1>Pizza Clicker</h1>
+            <div class="account-menu">
+                <button id="accountButton" class="account-button-header" onclick="toggleAccountMenu()">Conta</button>
+                <div id="accountDropdown" class="account-dropdown" style="display: none;">
+                    <div class="account-info">
+                        <p id="currentUsername">Usuário: Não logado</p>
+                    </div>
+                    <button onclick="openProfileModal()">Perfil</button>
+                    <button onclick="logout()">Sair</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <span id="pizzaCount">0</span>
+                <span>Pizzas</span>
+            </div>
+            <div class="stat">
+                <span id="pizzasPerSecond">0</span>
+                <span>Por Segundo</span>
+            </div>
+            <div class="stat">
+                <span id="rebirthCount">0</span>
+                <span>Renascimentos</span>
+            </div>
+        </div>
+
+        <div class="pizza-container">
+            <button id="pizzaButton" class="pizza-button">
+                <img src="icon/ChatGPT Image 9 de nov. de 2025, 03_37_12.png" alt="Pizza" class="pizza-image">
+            </button>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab('upgrades')">Upgrades</button>
+            <button class="tab-button" onclick="switchTab('miniUpgrades')">Mini Upgrades</button>
+            <button class="tab-button" onclick="switchTab('achievements')">Conquistas</button>
+            <button class="tab-button" onclick="switchTab('ascension')">Ascensão</button>
+            <button class="tab-button" onclick="switchTab('miner')">Pizza Miner</button>
+        </div>
+
+        <div id="upgradesTab" class="tab-content active">
+            <h2>Upgrades</h2>
+            <div id="upgradesContainer" class="upgrades-container"></div>
+        </div>
+
+        <div id="miniUpgradesTab" class="tab-content">
+            <h2>Mini Upgrades</h2>
+            <div id="miniUpgradesContainer" class="mini-upgrades-container"></div>
+        </div>
+
+        <div id="achievementsTab" class="tab-content">
+            <h2>Conquistas</h2>
+            <div id="achievementsContainer" class="achievements-container"></div>
+        </div>
+
+        <div id="ascensionTab" class="tab-content">
+            <h2>Ascensão</h2>
+            <div class="ascension-info">
+                <p>Nível de Ascensão: <span id="ascensionCount">0</span></p>
+                <p>Pontos de Ascensão: <span id="ascensionPoints">0</span></p>
+                <button id="ascensionButton" class="ascension-button" disabled>Ascensão (10 Renascimentos)</button>
+            </div>
+            <div id="ascensionUpgradesContainer" class="ascension-upgrades-container"></div>
+        </div>
+
+        <div id="minerTab" class="tab-content">
+            <h2>Pizza Miner</h2>
+            <div class="miner-info">
+                <p>Taxa de Mineração: <span id="miningRate">0</span> pizzas por segundo</p>
+                <p>Status: <span id="miningStatus">Parado</span></p>
+                <button id="startMiningButton" onclick="startMining()">Iniciar Mineração</button>
+                <button id="stopMiningButton" onclick="stopMining()" disabled>Parar Mineração</button>
+            </div>
+            <p class="miner-description">Use o poder total do seu computador para minerar pizzas! Dispositivos mais potentes mineram mais pizzas.</p>
+        </div>
+
+        <div class="rebirth-section">
+            <button id="rebirthButton" class="rebirth-button" disabled>Renascimento (1M Pizzas)</button>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeProfileModal()">&times;</span>
+            <h2>Perfil da Conta</h2>
+            <div class="profile-form">
+                <label for="profileUsername">Nome de Usuário:</label>
+                <input type="text" id="profileUsername" class="profile-input" readonly>
+
+                <label for="profileNewPassword">Nova Senha:</label>
+                <input type="password" id="profileNewPassword" class="profile-input" placeholder="Digite nova senha">
+
+                <label for="profileConfirmPassword">Confirmar Nova Senha:</label>
+                <input type="password" id="profileConfirmPassword" class="profile-input" placeholder="Confirme nova senha">
+
+                <button onclick="updateProfile()" class="profile-button">Atualizar Perfil</button>
+                <p id="profileError" class="error-message"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
